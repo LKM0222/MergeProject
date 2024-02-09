@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MergeCell : MonoBehaviour
 {
+    public GameObject nowTile;
     // Start is called before the first frame update
     void Start()
     {
