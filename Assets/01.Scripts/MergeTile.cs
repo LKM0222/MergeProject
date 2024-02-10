@@ -7,7 +7,7 @@ public class MergeTile : MonoBehaviour
 {   
     [SerializeField] GameObject cell;
     [SerializeField] GameObject targetTile;
-    [SerializeField] Tile tile;
+    public Tile tile;
 
     [SerializeField] Vector3 startPos;
 
@@ -23,6 +23,8 @@ public class MergeTile : MonoBehaviour
         this.transform.position = new Vector3(mousePos.x, mousePos.y, this.transform.position.z);
     }
 
+
+    //스포너에 타일 생성하는 로직이 깔끔하지 않음...
     private void OnMouseUp() {
         //셀이 있는 경우
         if(cell != null){
@@ -33,6 +35,8 @@ public class MergeTile : MonoBehaviour
                     this.transform.position = cell.transform.position; //위치를 옮기고
                     tile.UpLevel(); //타일의 레벨 1 증가
                     Destroy(targetTile); //타겟 타일 파괴
+                    TileSpawner.Instance.spawnFlag = true; //타일 생성
+                    
                 }
                 else{
                     this.transform.position = startPos; //조건과 맞지 않다면 처음 자리로
@@ -40,6 +44,7 @@ public class MergeTile : MonoBehaviour
             }
             else{ //타겟 타일이 없는경우엔 그냥 셀로만 이동
                 this.transform.position = cell.transform.position;
+                TileSpawner.Instance.spawnFlag = true;
             }
         }
         else{ //셀이 없는경우 이동할곳이 없음
